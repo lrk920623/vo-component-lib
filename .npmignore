@@ -8,5 +8,4 @@ test/
 vue.config.js
 babel.config.js
 jest.config.js
-postcss.config.js
 *.map
