@@ -1,6 +1,12 @@
 <template>
-  <a-select :value="select" :placeholder="title" @change="selectChange">
-    <a-select-option v-for="item in list" :key="item[code]" :value="item[code]">
+  <a-select
+    :value="select"
+    :placeholder="title"
+    @change="selectChange">
+    <a-select-option
+      v-for="item in list"
+      :key="item[code]"
+      :value="item[code]">
       {{ item[name] }}
     </a-select-option>
   </a-select>
@@ -8,10 +14,10 @@
 
 <script>
 export default {
-  name: "VoSelect",
+  name: 'VoSelect',
   model: {
-    prop: "selected",
-    event: "change"
+    prop: 'selected',
+    event: 'change'
   },
 
   props: {
@@ -23,12 +29,12 @@ export default {
     selected: {
       type: String,
       required: false,
-      default: ""
+      default: ''
     },
 
     placeholder: {
       type: String,
-      default: "请选择",
+      default: '请选择',
       required: false
     },
 
@@ -36,23 +42,23 @@ export default {
       type: Object,
       required: false,
       default: function() {
-        return {};
+        return {}
       }
     }
   },
 
   data: function() {
     return {
-      code: this.type.code || "code",
-      name: this.type.name || "name",
+      code: this.type.code || 'code',
+      name: this.type.name || 'name',
       title: this.type.title || this.placeholder
-    };
+    }
   },
 
   computed: {
     select: {
       get() {
-        return this.selected || (this.list.length && this.list[0][this.code]);
+        return this.selected || (this.list.length && this.list[0][this.code])
       },
       set() {}
     }
@@ -60,8 +66,11 @@ export default {
 
   methods: {
     selectChange(value) {
-      this.$emit("change", value);
+      this.$emit('change', value)
     }
   }
-};
+}
 </script>
+<style lang="less">
+  @import "~ant-design-vue/lib/select/style/index";
+</style>
