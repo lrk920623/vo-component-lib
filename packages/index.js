@@ -1,8 +1,27 @@
 import Input from './base/input'
 import Select from './base/select'
+import Card from './base/card'
+import Modal from './base/modal'
+import Pager from './base/pager'
+import Spin from './base/spin'
+import CommonModal from './business/commonModal'
+import ParamShow from './business/paramShow'
+import SearchBox from './business/searchBox'
+import SingleControl from './business/singleControl'
 
 // 存储组件列表
-const components = [Input, Select]
+const components = [
+  Input,
+  Select,
+  Card,
+  Modal,
+  Pager,
+  Spin,
+  CommonModal,
+  ParamShow,
+  SearchBox,
+  SingleControl
+]
 
 // 定义 install 方法，接收 Vue 作为参数。如果使用 use 注册插件，则所有的组件都将被注册
 const install = function(Vue) {
@@ -22,6 +41,7 @@ export default {
   install,
 
   // 以下是具体的组件列表
-  Input,
-  Select
+  ...components
 }
+
+
