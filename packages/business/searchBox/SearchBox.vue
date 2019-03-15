@@ -9,10 +9,8 @@
 </template>
 
 <script>
-import SingleControl from './SingleControl'
 export default {
-  name: 'VoSearchBox',
-  Item: SingleControl
+  name: 'VoSearchBox'
 }
 </script>
 

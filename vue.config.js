@@ -11,6 +11,7 @@ module.exports = {
   lintOnSave: process.env.NODE_ENV !== 'production' ? 'error' : false,
 
   css: {
+    extract: false,
     loaderOptions: {
       less: {
         javascriptEnabled: true
