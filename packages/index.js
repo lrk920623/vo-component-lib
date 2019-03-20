@@ -46,8 +46,21 @@ export default {
   ...components
 }
 
-export {
+export const constant = {
   types
+}
+
+export {
+  Input,
+  Select,
+  Card,
+  Modal,
+  Pager,
+  Spin,
+  CommonModal,
+  ParamShow,
+  SearchBox,
+  SingleControl
 }
 
 
