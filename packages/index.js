@@ -9,7 +9,7 @@ import ParamShow from './business/paramShow'
 import SearchBox from './business/searchBox'
 import SingleControl from './business/singleControl'
 
-import { types } from 'business/_util/constant'
+import { types } from './business/_util/constant'
 
 // 存储组件列表
 const components = [
