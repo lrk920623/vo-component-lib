@@ -4,10 +4,15 @@ import Card from './base/card'
 import Modal from './base/modal'
 import Pager from './base/pager'
 import Spin from './base/spin'
+
+import CategoryModal from './business/categoryModal'
+import ClassModal from './business/classModal'
 import CommonModal from './business/commonModal'
 import ParamShow from './business/paramShow'
 import SearchBox from './business/searchBox'
 import SingleControl from './business/singleControl'
+
+import { types } from './business/_util/constant'
 
 // 存储组件列表
 const components = [
@@ -17,6 +22,8 @@ const components = [
   Modal,
   Pager,
   Spin,
+  CategoryModal,
+  ClassModal,
   CommonModal,
   ParamShow,
   SearchBox,
@@ -42,6 +49,25 @@ export default {
 
   // 以下是具体的组件列表
   ...components
+}
+
+export const constant = {
+  types
+}
+
+export {
+  Input,
+  Select,
+  Card,
+  Modal,
+  Pager,
+  Spin,
+  CategoryModal,
+  ClassModal,
+  CommonModal,
+  ParamShow,
+  SearchBox,
+  SingleControl
 }
 
 
