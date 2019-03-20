@@ -43,7 +43,7 @@
   import VoModalTree from 'packages/business/_sub/Tree'
   import VoModal from 'packages/base/modal'
   import VoShowList from 'packages/business/_sub/List'
-  import VoInput from 'packages/base/Input'
+  import VoInput from 'packages/base/input'
   import { buildParam, invalid, _debounce } from '../_util/utils'
   import { categoryTypes, types } from '../_util/constant'
 
