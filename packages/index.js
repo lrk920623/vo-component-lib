@@ -12,8 +12,6 @@ import ParamShow from './business/paramShow'
 import SearchBox from './business/searchBox'
 import SingleControl from './business/singleControl'
 
-import { types } from './business/_util/constant'
-
 // 存储组件列表
 const components = [
   Input,
@@ -49,10 +47,6 @@ export default {
 
   // 以下是具体的组件列表
   ...components
-}
-
-export const constant = {
-  types
 }
 
 export {

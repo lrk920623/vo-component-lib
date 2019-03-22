@@ -39,7 +39,6 @@ import VoShowList from 'packages/business/_sub/List'
 import VoInput from 'packages/base/input'
 import VoSelect from 'packages/base/select'
 import { buildParam, _debounce } from '../_util/utils'
-import { types } from '../_util/constant'
 
 export default {
   name: 'VoCommonModal',
@@ -51,6 +50,11 @@ export default {
   },
 
   props: {
+    types: {
+      type: Object,
+      required: true
+    },
+
     type: {
       type: Object,
       required: true
@@ -83,18 +87,17 @@ export default {
         district: ''
       },
       operations: [],
-      districts: [],
-      types
+      districts: []
     }
   },
 
   computed: {
     isStore() {
-      return this.type && this.type.sign === types.store.sign
+      return this.type && this.type.sign === this.types.store.sign
     },
 
     isGroup() {
-      return this.type && this.type.sign === types.group.sign
+      return this.type && this.type.sign === this.types.group.sign
     }
   },
 

@@ -1,7 +1,15 @@
 const path = require('path')
 
 module.exports = {
+
   devServer: {
+    proxy: {
+      '/api/master-data': {
+        target: 'http://10.0.1.51:9999',
+        changeOrigin: false
+      }
+    },
+
     overlay: {
       warnings: true,
       errors: true

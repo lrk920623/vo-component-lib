@@ -4,6 +4,8 @@ import { Input, Select, Card, Row, Col, Spin, Pagination, Form, Modal, Button, I
 import 'ant-design-vue/dist/antd.css'
 
 Vue.config.productionTip = false
+Vue.prototype.moduleId = 5
+
 
 Vue.use(Input)
 Vue.use(Select)

@@ -45,7 +45,7 @@
   import VoShowList from 'packages/business/_sub/List'
   import VoInput from 'packages/base/input'
   import { buildParam, invalid, _debounce } from '../_util/utils'
-  import { classTypes, types } from '../_util/constant'
+  import { classTypes } from '../_util/constant'
 
   let classType = Object.assign([], classTypes)
   classType.unshift({ id: 0, name: '编码', code: 'all' })
@@ -61,6 +61,11 @@
     },
 
     props: {
+      types: {
+        type: Object,
+        required: true
+      },
+
       multi: {
         type: Boolean,
         required: false,
@@ -85,7 +90,7 @@
       this.inputChange = _debounce(this.inputChange)
 
       return {
-        type: types.class,
+        type: this.types.class,
         currentLevel: 0,
         search: '',
         list: this.selected,

@@ -4,7 +4,7 @@
       v-for="(curr, index) in tree"
       :key="index"
       class="single-tree-box">
-      <p>{{ levelNames[curr.level - 1] }}</p>
+      <p>{{ levelNames[getLevelIndex(curr.level)] }}</p>
       <ul>
         <li
           v-for="(item, i) in curr.list"
@@ -30,8 +30,6 @@
 </template>
 
 <script>
-import { types } from '../_util/constant'
-
 export default {
   name: 'VoModalTree',
 
@@ -74,7 +72,7 @@ export default {
       tree: {},
       levelNames: this.levelType.map(s => s.name),
       activeCode: '',
-      isClass: this.type.sign === types.class.sign
+      isClass: this.type.sign === 'class'
     }
   },
 
@@ -92,6 +90,10 @@ export default {
   },
 
   methods: {
+    getLevelIndex(level) {
+      return this.levelType.findIndex(s => s.id === level)
+    },
+
     /**
      * 打开一个类目(选定一个类目)
      * 并尝试展示其子类目

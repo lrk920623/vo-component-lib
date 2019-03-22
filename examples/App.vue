@@ -34,17 +34,50 @@
               :data="select[types.brand.sign]"
               @clear="(data) => {}"></vo-param-show>
           </vo-single-control>
+
+          <vo-single-control :label="types.class.title">
+            <vo-param-show
+              :click-box="() => changeVisible(types.class, true)"
+              :data="select[types.class.sign]"
+              :types="types.class"
+              @clear="(data) => selectedItems(types.class.sign, data)"></vo-param-show>
+          </vo-single-control>
+
+          <vo-single-control :label="types.category.title">
+            <vo-param-show
+              :click-box="() => changeVisible(types.category, true)"
+              :data="select[types.category.sign]"
+              :types="types.category"
+              @clear="(data) => selectedItems(types.category.sign, data)"></vo-param-show>
+          </vo-single-control>
         </vo-search-box>
       </vo-card>
     </div>
 
     <vo-common-modal
       v-if="openCommon"
+      :types="types"
       :promise="promise"
       :type="types[activeModal]"
       :selected="select[activeModal]"
       @close="changeVisible(types[activeModal])"
       @ok="(data) => selectedItems(activeModal, data)"></vo-common-modal>
+
+    <vo-class-modal
+      v-if="open[types.class.sign]"
+      :types="types"
+      :promise="promise"
+      :selected="select[activeModal]"
+      @close="changeVisible(types.class, true)"
+      @ok="(data) => selectedItems(types.class.sign, data)"></vo-class-modal>
+
+    <vo-category-modal
+      v-if="open[types.category.sign]"
+      :types="types"
+      :promise="promise"
+      :selected="select[activeModal]"
+      @close="changeVisible(types.category, true)"
+      @ok="(data) => selectedItems(types.category.sign, data)"></vo-category-modal>
   </div>
 </template>
 
@@ -54,29 +87,15 @@ import VoSelect from 'packages/base/select'
 import VoCard from 'packages/base/card'
 import VoSpin from 'packages/base/spin'
 import VoPager from 'packages/base/pager'
-import VoSearchBox from 'packages/business/searchBox/SearchBox'
-import VoSingleControl from 'packages/business/searchBox/SingleControl'
+import VoSearchBox from 'packages/business/searchBox'
+import VoSingleControl from 'packages/business/singleControl'
 import VoParamShow from 'packages/business/paramShow'
 import VoCommonModal from 'packages/business/commonModal'
+import VoClassModal from 'packages/business/classModal'
+import VoCategoryModal from 'packages/business/categoryModal'
 
-
-import { types } from '../packages/business/_util/constant'
-
-function build(arr, code, name) {
-  return arr.map((s, i) => {
-    return {
-      [code || 'code']: i,
-      [name || 'name']: i * 1000
-    }
-  })
-}
-
-const array = []
-for (let i = 0; i < 100; i++) {
-  array.push(i)
-}
-const list = build(array)
-const brands = build(array, 'brandId', 'brandName')
+import { getUrlByType, buildPromise } from './common'
+import { types } from './constant'
 
 export default {
   components: {
@@ -88,34 +107,40 @@ export default {
     VoSearchBox,
     VoSingleControl,
     VoParamShow,
-    VoCommonModal
+    VoCommonModal,
+    VoClassModal,
+    VoCategoryModal
   },
 
   data() {
     return {
-      selectList: list,
+      selectList: [],
       selected: '',
       types,
-      select: {
-        brand: brands
-      },
+      select: {},
+      open: {},
       openCommon: false,
-      activeModal: 'brand',
-      promise: function () {
-        return new Promise(resolve => {
-          resolve({ data: brands })
-        })
-      }
+      activeModal: '',
+      promise: function () {}
     }
   },
 
   methods: {
+    selectedItems(type, data) {
+      this.$set(this.select, type, data)
+    },
+
     changeVisible(type, isCat) {
       const sign = type.sign
 
       isCat
         ? this.$set(this.open, sign, !this.open[sign])
         : (this.openCommon = !this.openCommon)
+
+      if (type) {
+        this.activeModal = sign
+        this.promise = buildPromise(getUrlByType(sign))
+      }
     },
   }
 }

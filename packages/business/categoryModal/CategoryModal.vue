@@ -45,7 +45,7 @@
   import VoShowList from 'packages/business/_sub/List'
   import VoInput from 'packages/base/input'
   import { buildParam, invalid, _debounce } from '../_util/utils'
-  import { categoryTypes, types } from '../_util/constant'
+  import { categoryTypes } from '../_util/constant'
 
   let allType = Object.assign([], categoryTypes)
   allType.unshift({ id: 0, name: '编码', code: 'all' })
@@ -61,6 +61,11 @@
     },
 
     props: {
+      types: {
+        type: Object,
+        required: true
+      },
+
       multi: {
         type: Boolean,
         required: false,
@@ -85,7 +90,7 @@
       this.inputChange = _debounce(this.inputChange)
 
       return {
-        type: types.category,
+        type: this.types.category,
         currentLevel: 0,
         search: '',
         list: this.selected,
@@ -188,7 +193,7 @@
 <style lang="less">
   .category-modal {
     .single-tree-box {
-      width: 20%;
+      width: 25%;
     }
   }
 </style>

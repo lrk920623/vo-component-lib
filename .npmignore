@@ -8,5 +8,17 @@ test/
 vue.config.js
 babel.config.js
 jest.config.js
+
+yarn.lock
+yarn-error.log
+package.json
+package-lock.json
+
 .eslintrc.js
+.prettierrc
+.gitignore
+.editorconfig
+.idea
+
+README.md
 *.map
