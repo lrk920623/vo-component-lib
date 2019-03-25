@@ -295,7 +295,6 @@ export default {
           : this.selectList.splice(this.selectList.findIndex(n => n[this.type.code] === content[this.type.code]), 1)
       }
 
-      console.log('single', this.selectList)
     }
   }
 }

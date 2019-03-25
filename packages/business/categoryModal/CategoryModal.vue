@@ -81,7 +81,7 @@
       },
 
       promise: {
-        type: Object,
+        type: [Object, Function],
         required: false,
         default: function() {
           return null
@@ -116,7 +116,7 @@
     },
 
     watch: {
-      promise(val) {
+      open(val) {
         if (!val) return
 
         this.currentLevel = 0
