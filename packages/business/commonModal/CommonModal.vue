@@ -1,7 +1,7 @@
 <template>
   <vo-modal
-    :open="true"
-    :title="type.title"
+    :open="open"
+    :title="type.title || ''"
     @close="$emit('close')"
     @handle-ok="ok">
     <div class="condition-box">
@@ -50,6 +50,11 @@ export default {
   },
 
   props: {
+    open: {
+      type: Boolean,
+      required: true
+    },
+
     types: {
       type: Object,
       required: true
@@ -57,12 +62,18 @@ export default {
 
     type: {
       type: Object,
-      required: true
+      required: false,
+      default: function() {
+        return {}
+      }
     },
 
     promise: {
       type: [Function, Object],
-      required: true
+      required: false,
+      default: function() {
+        return null
+      }
     },
 
     selected: {
@@ -116,15 +127,26 @@ export default {
     }
   },
 
-  mounted() {
-    this.getList()
-    if (this.isStore) {
-      this.getOperations()
-      this.getDistricts()
-    }
-  },
-
   methods: {
+    init() {
+      this.search = ''
+      this.param = {
+        operation: '',
+        district: ''
+      }
+
+      this.list = Object.assign([], this.selected)
+
+      if (!Object.keys(this.type).length) return
+
+      this.getList()
+
+      if (this.isStore) {
+        this.getOperations()
+        this.getDistricts()
+      }
+    },
+
     ok() {
       this.$emit('ok', this.list)
     },

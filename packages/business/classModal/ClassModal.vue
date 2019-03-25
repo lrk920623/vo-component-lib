@@ -1,6 +1,6 @@
 <template>
   <vo-modal
-    :open="true"
+    :open="open"
     :title="type.title"
     @close="$emit('close')"
     @handle-ok="ok">
@@ -9,14 +9,16 @@
         :types="classType"
         :level="currentLevel"
         @chooseType="chooseClassType"></vo-modal-button-group>
-      <vo-modal-tree
-        v-show="multi && currentLevel > 2"
-        :tree-data="tree"
-        :level="currentLevel"
-        :level-type="classTypes"
-        :promise="promise.tree"
-        :type="type"
-        @getListByCode="getListByCode"></vo-modal-tree>
+      <template v-if="promise">
+        <vo-modal-tree
+          v-show="multi && currentLevel > 2"
+          :tree-data="tree"
+          :level="currentLevel"
+          :level-type="classTypes"
+          :promise="promise.tree"
+          :type="type"
+          @getListByCode="getListByCode"></vo-modal-tree>
+      </template>
       <div>
         <vo-input
           v-model="search"
@@ -61,6 +63,12 @@
     },
 
     props: {
+      open: {
+        type: Boolean,
+        required: false,
+        default: false
+      },
+
       types: {
         type: Object,
         required: true
@@ -74,7 +82,10 @@
 
       promise: {
         type: Object,
-        required: true
+        required: false,
+        default: function() {
+          return null
+        }
       },
 
       selected: {
@@ -97,7 +108,6 @@
         classTypes,
         classType,
         tree: [],
-        activeCode: '',
         activePage: 1,
         record: {},
         loading: false,
@@ -105,8 +115,15 @@
       }
     },
 
-    mounted() {
-      this.getTree()
+    watch: {
+      promise(val) {
+        if (!val) return
+
+        this.currentLevel = 0
+        this.search = ''
+
+        this.getTree()
+      }
     },
 
     methods: {
@@ -122,7 +139,7 @@
       async getTree() {
         const payload = {
           moduleId: this.moduleId,
-          classCode: this.activeCode
+          classCode: ''
         }
 
         const { data } = await this.promise.tree(payload)

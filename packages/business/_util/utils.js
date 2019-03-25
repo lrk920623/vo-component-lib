@@ -102,17 +102,8 @@ export function allValid(list, select, maxCount) {
  * @returns {*}
  */
 export function allChoose(list, selected, type, level) {
-  list.forEach(c => (c.selected = true))
 
-  const index = selected.findIndex(s => {
-    return list
-      .filter(c => c.selected)
-      .map(c => String(c[type.code]))
-      .includes(s[type.code])
-  })
-  selected.splice(index, 1)
-
-  const filter = list.filter(c => c.selected).map(s => {
+  const filter = list.filter(c => !c.selected).map(s => {
     const sel = {
       [type.code]: String(s[type.code]),
       [type.name]: s[type.name]
@@ -127,6 +118,8 @@ export function allChoose(list, selected, type, level) {
   if (type.level && level === 0 && selected.length && filter.length) {
     if (selected[0].level !== filter[0].level) selected = []
   }
+
+  list.forEach(c => (c.selected = true))
 
   return union(selected, filter)
 }

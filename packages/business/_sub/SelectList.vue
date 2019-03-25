@@ -60,7 +60,8 @@ export default {
       // 更新当前展示的list
       this.selectShow.splice(this.selectShow.indexOf(val), 1)
 
-      this.$emit('selectDelete', val)
+      const code = val.substr(val.indexOf('[') + 1, val.indexOf(']') - 1)
+      this.$emit('selectDelete', code)
     },
 
     getContainer(node) {

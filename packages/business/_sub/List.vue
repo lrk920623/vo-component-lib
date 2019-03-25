@@ -222,8 +222,8 @@ export default {
         return
       }
 
-      this.selectList.splice(this.selectList.findIndex(s => s[this.type.name] === remove), 1)
-      this.list.find(s => s[this.type.name] === remove).selected = false
+      this.selectList.splice(this.selectList.findIndex(s => s[this.type.code] == remove), 1)
+      this.list.find(s => s[this.type.code] == remove).selected = false
     },
 
     /**
@@ -261,6 +261,7 @@ export default {
         this.type,
         this.level
       )
+
     },
 
     /**
@@ -293,6 +294,8 @@ export default {
           ? this.selectList.push(content)
           : this.selectList.splice(this.selectList.findIndex(n => n[this.type.code] === content[this.type.code]), 1)
       }
+
+      console.log('single', this.selectList)
     }
   }
 }
@@ -315,9 +318,10 @@ export default {
     > .list-body {
       margin: 0 !important;
       width: 100%;
-      height: 220px;
+      height: 200px;
       overflow-y: auto;
       overflow-x: hidden;
+      padding: 0 5px;
     }
 
     > .header {
@@ -352,10 +356,11 @@ export default {
           background-color: @background-color;
           box-shadow: none;
           line-height: 35px;
+          margin-right: 3px;
 
           &:hover {
             border: 0;
-            box-shadow: 1px 1px 2px #888888;
+            box-shadow: 2px 2px 2px #888888;
             color: #000;
           }
 

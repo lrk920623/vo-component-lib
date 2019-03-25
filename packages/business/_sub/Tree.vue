@@ -9,7 +9,7 @@
         <li
           v-for="(item, i) in curr.list"
           :key="i"
-          :class="{selected: item[type.code] === activeCode}"
+          :class="{selected: item[type.code] === curr.selectCode}"
           :title="item[type.name]"
           @click="choose(item, curr)">
           <div>
@@ -71,7 +71,6 @@ export default {
     return {
       tree: {},
       levelNames: this.levelType.map(s => s.name),
-      activeCode: '',
       isClass: this.type.sign === 'class'
     }
   },
@@ -102,14 +101,14 @@ export default {
      */
     choose(item, parent) {
       // 保存当前点击的树形结构中的分类
-      this.activeCode = item[this.type.code]
+      this.$set(parent, 'selectCode', item[this.type.code])
 
       if (this.multi) {
         // 清空输入框的过滤值
         this.search = ''
 
         // 多选模式中 点击树形结构的分类触发获取指定层级子分类
-        this.$emit('getListByCode', this.activeCode)
+        this.$emit('getListByCode', parent.selectCode)
 
         // 如果点击的全部或者点击level大于等于this.level 不去获取子分类
         if (!item.level) {
